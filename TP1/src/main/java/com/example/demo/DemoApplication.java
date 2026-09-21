@@ -17,4 +17,11 @@ public class DemoApplication {
     public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
       return String.format("Hello %s!", name);
     }
+
+	@GetMapping("/test-bd")
+	public void testDatabaseConnection() {
+		// Code to test database connection goes here
+	}
+
+	
 }
