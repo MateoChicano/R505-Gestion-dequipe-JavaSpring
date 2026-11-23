@@ -6,8 +6,8 @@ error_reporting(E_ALL);
 
 use r401_frontend\Controleur\JoueurControleur;
 
-require_once dirname(__DIR__, 3) . '/functions.php';
-require_once dirname(__DIR__, 3) . '/constants.php';
+require_once dirname(__DIR__, 2) . '/functions.php';
+require_once dirname(__DIR__, 2) . '/constants.php';
 
 $joueurControleur = JoueurControleur::getInstance();
 

@@ -1,30 +1,39 @@
 <?php
 
 function request(string $method, string $url, ?array $data = null, ?string $token = null): array {
-    $ch = curl_init();
     $headers = ['Accept: application/json'];
     if ($token) $headers[] = 'Authorization: Bearer '.$token;
 
     $options = [
-        CURLOPT_URL => $url,
-        CURLOPT_CUSTOMREQUEST => $method,
-        CURLOPT_RETURNTRANSFER => true,
+        'http' => [
+            'method' => $method,
+            'header' => implode("\r\n", $headers),
+            'ignore_errors' => true,
+        ],
     ];
 
     if ($data !== null) {
         $headers[] = 'Content-Type: application/json';
-        $options[CURLOPT_POSTFIELDS] = json_encode($data);
+        $options['http']['header'] = implode("\r\n", $headers);
+        $options['http']['content'] = json_encode($data);
     }
-    $options[CURLOPT_HTTPHEADER] = $headers;
 
-    curl_setopt_array($ch, $options);
-    $response = curl_exec($ch);
+    $context = stream_context_create($options);
+    $response = @file_get_contents($url, false, $context);
     if ($response === false) {
-        throw new Exception(curl_error($ch));
+        throw new Exception("Impossible d'appeler l'API : $url");
+    }
+
+    $statusCode = 0;
+    $headers = function_exists('http_get_last_response_headers')
+        ? (http_get_last_response_headers() ?? [])
+        : [];
+    if (isset($headers[0]) && preg_match('/HTTP\/\S+\s+(\d{3})/', $headers[0], $matches)) {
+        $statusCode = (int) $matches[1];
     }
 
     return [
-        'status_code' => curl_getinfo($ch, CURLINFO_HTTP_CODE),
+        'status_code' => $statusCode,
         'data' => json_decode($response, true),
     ];
 }

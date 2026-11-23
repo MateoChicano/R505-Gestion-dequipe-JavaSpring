@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__DIR__, 2) . '/functions.php';
+require_once dirname(__DIR__) . '/functions.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"]) && isset($_POST["password"])) {
     $data = array(

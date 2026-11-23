@@ -14,7 +14,7 @@ Le projet est en PHP pur, aucun `composer install` n'est nécessaire.
 Depuis ce dossier (`TP1/src/main/java/com/example/Frontend`) :
 
 ```bash
-php -S localhost:8000
+php -S localhost:8000 index.php
 ```
 
 Puis ouvrez <http://localhost:8000> dans votre navigateur.
@@ -27,7 +27,8 @@ cd TP1
 ```
 
 > L'URL du backend est définie dans `constants.php` (`BACKEND_BASE_URL`), par défaut `http://localhost:8080/`.
-> Si le serveur PHP est installé (`sudo apt install php-cli php-curl`), les pages ne resteront pas vides.
+> Le module cURL n'est pas nécessaire : `functions.php` utilise les flux HTTP natifs de PHP.
+> Le routeur `index.php` est indispensable pour que les URL comme `/joueur` fonctionnent.
 
 ## Organisation
 

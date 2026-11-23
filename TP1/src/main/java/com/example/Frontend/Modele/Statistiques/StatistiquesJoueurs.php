@@ -14,7 +14,7 @@ class StatistiquesJoueurs {
         array $rencontres,
     ) {
         $this->participations = $participations;
-        usort($rencontres, function ($a, $b) { return $a->getDateEtHeure() <=> $b->getDateEtHeure(); });
+        usort($rencontres, function ($a, $b) { return $a->getdateHeure() <=> $b->getdateHeure(); });
         $this->rencontresJouees = array_filter($rencontres, function ($rencontre) { return $rencontre->joue(); });
     }
 

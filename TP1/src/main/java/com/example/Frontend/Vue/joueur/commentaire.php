@@ -1,7 +1,7 @@
 <?php
 
-require_once dirname(__DIR__, 3) . '/functions.php';
-require_once dirname(__DIR__, 3) . '/constants.php';
+require_once dirname(__DIR__, 2) . '/functions.php';
+require_once dirname(__DIR__, 2) . '/constants.php';
 
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
